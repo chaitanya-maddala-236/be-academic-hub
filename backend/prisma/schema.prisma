@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ResearchProject {
+  id                   Int       @id @default(autoincrement())
+  title                String
+  abstract             String?
+  department           String?
+  fundingAgency        String?   @map("funding_agency")
+  agencyScientist      String?   @map("agency_scientist")
+  fileNumber           String?   @map("file_number")
+  sanctionedAmount     Float?    @map("sanctioned_amount")
+  startDate            DateTime? @map("start_date")
+  endDate              DateTime? @map("end_date")
+  principalInvestigator String?  @map("principal_investigator")
+  coPrincipalInvestigator String? @map("co_principal_investigator")
+  teamMembers          Json?     @map("team_members")
+  deliverables         String?
+  outcomes             String?
+  attachments          Json?
+  isDeleted            Boolean   @default(false) @map("is_deleted")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+  createdBy            Int?      @map("created_by")
+
+  @@map("research_projects")
+}
+
+model Faculty {
+  id           Int       @id @default(autoincrement())
+  name         String
+  designation  String?
+  department   String?
+  email        String?   @unique
+  specialization String?
+  bio          String?
+  profileImage String?   @map("profile_image")
+  isDeleted    Boolean   @default(false) @map("is_deleted")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@map("faculty_members")
+}
