@@ -169,7 +169,7 @@ const getResearchStats = async (req, res, next) => {
       LEFT JOIN faculty f ON p.faculty_id = f.id
     `);
     const pubRow = pubResult.rows[0];
-    const pubDepts: string[] = pubRow.pub_departments ?? [];
+    const pubDepts= pubRow.pub_departments ?? [];
 
     // Projects stats (Prisma)
     const [totalProjects, allProjects] = await Promise.all([
